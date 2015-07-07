@@ -35,6 +35,7 @@ var BookPage = React.createClass({
     return (
       <div className="row">
         <div className="book__title">{this.state.book.title}</div>
+        <div className="book__img"><img src={this.state.book.img_url} alt={this.state.book.title} /></div>
         <div className="book__author">{this.state.book.author}</div>
         <div className="book__isbn">{this.state.book.isbn}</div>
         <div className="book__body">{this.state.book.summary}</div>

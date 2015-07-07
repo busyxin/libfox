@@ -8,6 +8,7 @@ require 'faker'
   Book.create(
   	title: Faker::App.name,
   	author: Faker::Name.name,
+  	img_url: Faker::Avatar.image("my-own-slug", "250x150", "jpg"),
   	hitfox_id: Faker::Number.number(3),
   	isbn: Faker::Code.isbn,
   	summary: Faker::Lorem.paragraph,
