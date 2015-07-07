@@ -2,7 +2,7 @@ var keyMirror = require('keymirror');
 
 var APIRoot = "http://localhost:3000";
 
-APIRoot = "http://fd11edb9.ngrok.io";
+APIRoot = "https://1330a5a6.ngrok.io";
 
 module.exports = {
 

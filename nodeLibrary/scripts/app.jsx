@@ -31,7 +31,7 @@ window.gpAsyncInit = function() {
 
         $.ajax({
         	type: 'POST', 
-        	url: "https://fd11edb9.ngrok.io/auth/google_oauth2/callback", 
+        	url: "http://1330a5a6.ngrok.io/auth/google_oauth2/callback", 
         	dataType: 'json', 
         	data: response,
         	crossDomain: true,
