@@ -25,7 +25,7 @@ module Library
 
 
         render json: @auth
-      #redirect_to "http://e286d568.ngrok.io"
+      #redirect_to "http://7724797b.ngrok.io"
     end
 
 
