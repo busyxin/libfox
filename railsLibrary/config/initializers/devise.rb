@@ -5,7 +5,9 @@ Devise.setup do |config|
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
   # config.secret_key = '5314bea3cb29e46c6c044d3a7fb69155e8dd4032ff9891a86bec0ba0397f6b2e23ff82299d775e86b8cf93cdfcb6f91822c2d6aea19c24056eb04489b3d17ca9'
-
+  
+  require "omniauth-google-oauth2"
+  
   config.omniauth :google_oauth2, "CLIENT_ID", "CLIENT_SECRET", { }
 
   # ==> Mailer Configuration

@@ -1,11 +1,11 @@
 var React = require('react');
-var SessionActionCreators = require('../../actions/SessionActionCreators.react.jsx');
-var SessionStore = require('../../stores/SessionStore.react.jsx');
-var ErrorNotice = require('../../components/common/ErrorNotice.react.jsx');
 var Router = require('react-router');
-var LibraryConstants = require('../../constants/LibraryConstants.js');
+var SessionActionCreators = require('../actions/SessionActionCreators.react.jsx');
+var SessionStore = require('../stores/SessionStore.react.jsx');
+var ErrorNotice = require('./common/ErrorNotice.react.jsx');
+var LibraryConstants = require('../constants/LibraryConstants.js');
 
-var LandingPage = React.createClass({
+var DashboardPage = React.createClass({
 
   getInitialState: function() {
     return { errors: [] };
@@ -42,5 +42,5 @@ var LandingPage = React.createClass({
   }
 });
 
-module.exports = LandingPage;
+module.exports = DashboardPage;
 

@@ -63,7 +63,6 @@ BookStore.dispatchToken = LibraryAppDispatcher.register(function(payload) {
     case ActionTypes.RECEIVE_BOOK:
       if (action.json) {
         _book = action.json.book;
-        console.log(_book);
         _errors = [];
       }
       if (action.errors) {

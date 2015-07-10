@@ -9,22 +9,21 @@ module Library
     end
    
     def create
-      @auth = request.env['omniauth.auth']['credentials']
-      puts "Auth key"
-      puts @auth
+      puts "In sessions controller create ---------^"
+      
+      #@auth = request.env['omniauth.auth']['credentials']
+      #puts "Auth key"
+      #puts @auth
 
       puts "omniauth"
       puts request.env['omniauth.auth']
+
       @token = Token.create(
         access_token: @auth['token'],
         refresh_token: @auth['refresh_token'],
         expires_at: Time.at(@auth['expires_at']).to_datetime)
 
-      puts "Current User"
-      puts current_user
-
-
-        render json: @auth
+      render json: @auth
       #redirect_to "http://7724797b.ngrok.io"
     end
 

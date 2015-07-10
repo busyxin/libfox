@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :recoverable, :validatable
+  devise :database_authenticatable, :recoverable, :validatable, :omniauthable, :omniauth_providers => [:google_oauth2]
 
   after_create :update_access_token!
   

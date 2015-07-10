@@ -48,16 +48,25 @@ var BooksPage = React.createClass({
 var BookItem = React.createClass({
   render: function() {
     return (
-      <li className="book">
-        <div className="book__title">
+        <div className="book">
           <Link to="book" params={ {bookId: this.props.book.id} }>
-            {this.props.book.title}
+            <div className="book__cover"></div>
+            <div className="book__author">
+                {this.props.book.author}
+            </div>
+            <div className="book__title">
+                {this.props.book.title}
+            </div>
+            <div className="book__summary">
+              <p className="book__summary__text">
+                {this.props.book.summary}
+              </p>
+            </div>
+            <div className="book__bottom">
+              Available
+            </div>
           </Link>
         </div>
-        <div className="book__summary">
-          {this.props.book.summary}
-        </div>
-      </li>
       );
   }
 });
@@ -65,11 +74,11 @@ var BookItem = React.createClass({
 var BooksList = React.createClass({
   render: function() {
     return (
-      <ul className="large-8 medium-10 small-12 small-centered columns">
+      <div className="large-12 medium-12 small-12 small-centered columns book_catalog_container">
         {this.props.books.map(function(book, index){
           return <BookItem book={book} key={"book-" + index}/>
         })}
-      </ul>
+      </div>
     );
   }
 });

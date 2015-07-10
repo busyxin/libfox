@@ -3,12 +3,8 @@ Rails.application.routes.draw do
   post 'books/borrow' => 'books#borrow', defaults: { format: :json }
   post 'books/return' => 'books#return', defaults: { format: :json }
 
-  devise_for :user, only: []
-  
-  namespace :library, defaults: { format: :json } do
-    resource :login, only: [:create], controller: :sessions
-    resources :users, only: [:create]
-  end
+	devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
-	get "auth/:provider/callback" => 'library/sessions#create'
+  #post "auth/:provider/callback" => 'users/omniauth_callbacks'
+  
 end
