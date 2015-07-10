@@ -1,10 +1,8 @@
 @import 'fonts';
 @import 'spinner';
-@import '../bower_components/foundation/scss/foundation/_functions.scss';
+@import '../bower_components/materialize/sass/components/_color.scss';
 @import url(https://fonts.googleapis.com/css?family=Raleway:700,400);
-@import 'colors';
-
-$topbar-height: rem-calc(45);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 *, *:before, *:after {
   box-sizing: border-box;
@@ -12,53 +10,24 @@ $topbar-height: rem-calc(45);
 }
 
 body {
-  background-color: #f4f5f5;
+  background-color: #{map-get($grey, lighten-4)};
 }
 
-a {
-  color: $dark-orange;
-  transition: all 0.3s ease-in;
-
-  &:hover {
-    color: $bright-orange;
-  }
-}
-
-.card {
-  margin-bottom: 1em;
-  padding: 20px;
-  background-color: #ECF0F1;
-  border-bottom: 4px solid #D4D7D8;
+nav {
   ul {
-    margin-bottom: 0;
+    h1 {
+      margin: 0;
+      line-height: 1em;
+    }
+    a {
+      color: black;
+    }
   }
-}
-
-.card--login {
-  margin-top: 20px;
-}
-
-.card--login__field {
-  label {
-    font-family: lato-light;
-  }
-  input {
-    border-width: 0px;
-    border-left: 4px solid #c2c2c2;
-    box-shadow: none;
-  }
-}
-
-.card--login__submit {
-  width: 100%;
-  margin: 0;
-  margin-top: 10px;
-  font-family: 'Lato'
 }
 
 .error-notice {
   position: absolute;
-  top: $topbar-height; 
+  top: rem-calc(45); 
   width: 100%;
   z-index: 9999;
   background-color: #E44646;
@@ -72,12 +41,8 @@ a {
 }
 
 .book_catalog_container {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
   justify-content: space-around;
 }
 
@@ -138,8 +103,6 @@ a {
   right: 0;
   padding: 5px;
   text-align: center;
-  background: $cold-turq;
-  color: #ffffff;
   align-self: flex-end;
   transition: all 0.3s ease-in;
 }

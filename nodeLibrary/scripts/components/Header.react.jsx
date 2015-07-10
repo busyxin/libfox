@@ -15,44 +15,59 @@ var Header = React.createClass({
     SessionActionCreators.logout();
   },
   render: function() {
-    var rightNav = this.props.isLoggedIn ? (
-      <ul className="right">
-        <li className="has-dropdown">
-          <a href="#">{this.props.email}</a>
-          <ul className="dropdown">
-            <li><a href='#' onClick={this.logout}>Logout</a></li>
-          </ul>
-        </li> 
-      </ul>
-    ) : (
-      <ul className="right">
-        <li><Link to="login">Login</Link></li>
-        <li><Link to="signup">Sign up</Link></li>
-      </ul>
-    );
-
+    //Swap loggedIn DOM when sessions are implemented
     var leftNav = this.props.isLoggedIn ? (
-      <ul className="left">
-        //<li><Link to="new-story">New story</Link></li>
-      </ul>
-    ) : (
-      <div></div>
-    );
+        <div></div>
+      ) : (
+        <ul className="left hide-on-med-and-down">
+          <li><a href="#!">My books</a></li>
+          <li><a className="dropdown-button" href="#!" data-activates="dropdown1">Browse<i className="material-icons right">arrow_drop_down</i></a></li>
+        </ul>
+      );
+
+    var rightNav = this.props.isLoggedIn ? (
+        <div></div>
+      ) : (
+        <ul className="right">
+          <li><a className="dropdown-button constrainWidth" href="#!" data-activates="dropdown2">chin.man.yeung@hitfoxgroup.com<i className="material-icons right">arrow_drop_down</i></a></li>
+        </ul>
+      );
 
     return (
-      <nav className="top-bar" data-topbar role="navigation">
-        <ul className="title-area">
-          <li className="name">
-            <h1><a href="#"><strong>HitFox Library</strong></a></h1>
-          </li>
-          <li className="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      <div className="navbar-fixed">
+
+        <ul id="dropdown1" className="dropdown-content">
+          <li><a href="#">All Categories</a></li>
+          <li className="divider"></li>
+          <li><a href="#">Accounting</a></li>
+          <li className="divider"></li>
+          <li><a href="#">Business &amp; Economics</a></li>
+          <li className="divider"></li>
+          <li><a href="#">Design<span className="new badge">2</span></a></li>
+          <li className="divider"></li>
+          <li><a href="#">Management</a></li>
+          <li className="divider"></li>
+          <li><a href="#">Technology<span className="new badge">4</span></a></li>
         </ul>
 
-        <section className="top-bar-section">
-          {rightNav}
-          {leftNav}
-        </section>
-      </nav>
+        <ul id="dropdown2" className="dropdown-content">
+          <li><a href="#">Settings</a></li>
+          <li className="divider"></li>
+          <li><a href="#" onClick={this.logout}>Sign out</a></li>
+        </ul>
+
+        <nav className="white" data-topbar role="navigation">
+          <ul className="title-area">
+            <li className="name">
+              <h1><a href="#"><strong>HitFox Library</strong></a></h1>
+            </li>
+          </ul>
+          <div className="nav-wrapper">
+            {rightNav}
+            {leftNav}
+          </div>
+        </nav>
+      </div>
     );
   }
 });

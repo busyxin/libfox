@@ -62,7 +62,7 @@ var BookItem = React.createClass({
                 {this.props.book.summary}
               </p>
             </div>
-            <div className="book__bottom">
+            <div className="book__bottom white-text green lighten-2">
               Available
             </div>
           </Link>
@@ -74,7 +74,7 @@ var BookItem = React.createClass({
 var BooksList = React.createClass({
   render: function() {
     return (
-      <div className="large-12 medium-12 small-12 small-centered columns book_catalog_container">
+      <div className="col s12 book_catalog_container">
         {this.props.books.map(function(book, index){
           return <BookItem book={book} key={"book-" + index}/>
         })}

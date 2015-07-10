@@ -35,7 +35,9 @@ var LibraryApp = React.createClass({
         <Header 
           isLoggedIn={this.state.isLoggedIn}
           email={this.state.email} />
-        <RouteHandler/>
+        <div className="container">
+          <RouteHandler/>
+        </div>
       </div>
     );
   }
