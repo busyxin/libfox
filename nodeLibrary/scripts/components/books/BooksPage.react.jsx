@@ -3,9 +3,13 @@ var WebAPIUtils = require('../../utils/WebAPIUtils.js');
 var BookStore = require('../../stores/BookStore.react.jsx');
 var ErrorNotice = require('../../components/common/ErrorNotice.react.jsx');
 var BookActionCreators = require('../../actions/BookActionCreators.react.jsx');
+
 var Router = require('react-router');
 var Link = Router.Link;
-var timeago = require('timeago');
+
+var Mui = require('material-ui');
+var ThemeManager = new Mui.Styles.ThemeManager();
+var RaisedButton = Mui.RaisedButton;
 
 var BooksPage = React.createClass({
 

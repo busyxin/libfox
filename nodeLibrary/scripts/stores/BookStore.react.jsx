@@ -9,7 +9,7 @@ var CHANGE_EVENT = 'change';
 
 var _books = [];
 var _errors = [];
-var _book = { title: "", summary: "", user: { username: "" }, img_url: "" };
+var _book = { title: "", summary: "", user: { username: "" }, img_url: "", status: "" };
 
 var BookStore = assign({}, EventEmitter.prototype, {
 

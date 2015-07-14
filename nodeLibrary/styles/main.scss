@@ -1,7 +1,6 @@
-@import 'fonts';
 @import 'spinner';
 @import '../../node_modules/materialize-css/bin/materialize.css';
-@import url(https://fonts.googleapis.com/css?family=Raleway:700,400);
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,500);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 
@@ -21,7 +20,7 @@
 
 *, *:before, *:after {
   box-sizing: border-box;
-  font-family: lato;
+  font-family: roboto;
 }
 
 body {
@@ -121,8 +120,8 @@ nav {
     z-index: 0;
     bottom: 0;
 }
-.video-wrapper video.fillHeight {
-    height: 100vh;
+.video-wrapper video.fillWidth {
+    width: 100vw;
 }
 
 .hidden {
@@ -170,11 +169,17 @@ nav {
   }
 }
 
+.book__author {
+  @include ellipsis(4em, 1);
+  line-height: 2em; 
+}
+
 .book__title {
   font-size: 1em;
   line-height: 1.4em;
   padding: 0 10px;
   height: 3em;
+  @include ellipsis(3em, 2);
 }
 
 .book__author, .book__summary {
@@ -219,7 +224,8 @@ nav {
 .book__details__title {
   font-size: 1.5em;
   padding: 0;
-  line-height: 3em;
+  line-height: 1.5em;
+  margin: 50px auto;
 }
 
 .book__details__button {

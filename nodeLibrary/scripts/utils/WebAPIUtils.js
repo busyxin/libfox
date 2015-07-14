@@ -18,53 +18,13 @@ var APIEndpoints = LibraryConstants.APIEndpoints;
 
 module.exports = {
 
-  // signup: function(email, username, password, passwordConfirmation) {
-  //   request.post(APIEndpoints.REGISTRATION)
-  //     .send({ user: { 
-  //       email: email, 
-  //       username: username,
-  //       password: password,
-  //       password_confirmation: passwordConfirmation
-  //     }})
-  //     .set('Accept', 'application/json')
-  //     .end(function(error, res) {
-  //       if (res) {
-  //         if (res.error) {
-  //           var errorMsgs = _getErrors(res);
-  //           ServerActionCreators.receiveLogin(null, errorMsgs);
-  //         } else {
-  //           json = JSON.parse(res.text);
-  //           ServerActionCreators.receiveLogin(json, null);
-  //         }
-  //       }
-  //     });
-  // },
-
-  // login: function(email, password) {
-  //   request.post(APIEndpoints.LOGIN)
-  //     .send({ username: email, password: password, grant_type: 'password' })
-  //     .set('Accept', 'application/json')
-  //     .end(function(error, res){
-  //       if (res) {
-  //         if (res.error) {
-  //           var errorMsgs = _getErrors(res);
-  //           ServerActionCreators.receiveLogin(null, errorMsgs);
-  //         } else {
-  //           json = JSON.parse(res.text);
-  //           ServerActionCreators.receiveLogin(json, null);
-  //         }
-  //       }
-  //     });
-  // },
-
   loadBooks: function() {
-    console.log(sessionStorage.getItem('accessToken'));
     request.get(APIEndpoints.BOOKS)
       .set('Accept', 'application/json')
       .set('Authorization', sessionStorage.getItem('accessToken'))
       .end(function(error, res){
         if (res) {
-          json = JSON.parse(res.text);
+          var json = JSON.parse(res.text);
           ServerActionCreators.receiveBooks(json);
         }
       });
@@ -76,8 +36,21 @@ module.exports = {
       .set('Authorization', sessionStorage.getItem('accessToken'))
       .end(function(error, res){
         if (res) {
-          json = JSON.parse(res.text);
+          var json = JSON.parse(res.text);
           ServerActionCreators.receiveBook(json);
+        }
+      });
+  },
+
+  updateBookStatus: function(bookId, action) {
+    request.post(APIEndpoints.BOOKS + "/" + bookId)
+      .set('Accept', 'application/json')
+      .set('Authorization', sessionStorage.getItem('accessToken'))
+      .send({"action": action})
+      .end(function(error, res){
+        if (res) {
+          alert("success");
+          console.log(res);
         }
       });
   }

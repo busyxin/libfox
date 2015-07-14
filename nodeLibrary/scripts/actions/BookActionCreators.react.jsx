@@ -19,6 +19,22 @@ module.exports = {
       bookId: bookId
     });
     WebAPIUtils.loadBook(bookId);
+  },
+
+  borrowBook: function(bookId) {
+    this.updateBookStatus(bookId, ActionTypes.BORROW_BOOK);
+  },
+
+  returnBook: function(bookId) {
+    this.updateBookStatus(bookId, ActionTypes.RETURN_BOOK);
+  },
+
+  updateBookStatus: function(bookId, actionType) {
+    LibraryAppDispatcher.handleViewAction({
+      type: actionType,
+      bookId: bookId
+    });
+    WebAPIUtils.updateBookStatus(bookId, actionType);    
   }
 
 };

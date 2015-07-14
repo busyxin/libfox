@@ -3,7 +3,6 @@
 var gulp = require('gulp'),
     gulpFilter = require('gulp-filter'),
     flatten = require('gulp-flatten'),
-    gnf = require('gulp-npm-files'),
     rename = require("gulp-rename"),
     minifycss = require('gulp-minify-css'),
     changed = require('gulp-changed'),
@@ -14,22 +13,19 @@ var gulp = require('gulp'),
     watchify = require('watchify'),
     source = require('vinyl-source-stream'),
     buffer = require('vinyl-buffer'),
-    reactify = require('reactify'),
     uglify = require('gulp-uglify'),
     del = require('del'),
     notify = require('gulp-notify'),
     browserSync = require('browser-sync'),
-    modernizr = require('gulp-modernizr'),
     reload = browserSync.reload,
+    babelify = require('babelify'),
     p = {
       jsx: './scripts/app.jsx',
       scss: 'styles/main.scss',
       scssSource: 'styles/*',
-      font: 'fonts/*',
       bundle: 'app.js',
       distJs: 'dist/js',
-      distCss: 'dist/css',
-      distFont: 'dist/fonts'
+      distCss: 'dist/css'
     };
 
 gulp.task('clean', function(cb) {
@@ -37,12 +33,7 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('browserSync', function() {
-  browserSync({
-    notify: false,
-    server: {
-      baseDir: './'
-    }
-  })
+  browserSync({notify: false, server: {baseDir: './'} })
 });
 
 gulp.task('watchify', function() {
@@ -57,24 +48,20 @@ gulp.task('watchify', function() {
       .pipe(reload({stream: true}));
   }
 
-  bundler.transform(reactify)
-  .on('update', rebundle);
+  bundler.transform(babelify)
+    .on('update', rebundle);
+  
   return rebundle();
 });
 
 gulp.task('browserify', function() {
   browserify(p.jsx)
-    .transform(reactify)
+    .transform(babelify)
     .bundle()
     .pipe(source(p.bundle))
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest(p.distJs));
-});
-
-gulp.task('fonts', function() {
-  return gulp.src(p.font)
-    .pipe(gulp.dest(p.distFont));
 });
 
 gulp.task('styles', function() {
@@ -88,52 +75,24 @@ gulp.task('styles', function() {
     .pipe(reload({stream: true}));
 });
 
-gulp.task('modernizr', function() {
-  gulp.src('./js/*.js')
-    .pipe(modernizr())
-    .pipe(gulp.dest(p.distJs))
-});
-
 gulp.task('npm-libs', function() {
 
-  var jsFilter = gulpFilter('*.js');
-  var cssFilter = gulpFilter('*.css');
-  var fontFilter = gulpFilter(['*.eot', '*.woff', '*.svg', '*.ttf']);
-
   gulp.src('./node_modules/jquery/dist/jquery.min.js')
-      .pipe(gulp.dest(p.distJs));
+    .pipe(gulp.dest(p.distJs));
 
   gulp.src('./node_modules/materialize-css/bin/materialize.js')
-      .pipe(gulp.dest(p.distJs))
-      .pipe(uglify())
-      .pipe(rename({
-        suffix: ".min"
-      }))
-      .pipe(gulp.dest(p.distJs))
-      .pipe(jsFilter.restore());
+    .pipe(uglify())
+    .pipe(rename({suffix: ".min"}))
+    .pipe(gulp.dest(p.distJs));
 
-  var fontFilter = gulpFilter(['*.eot', '*.woff', '*.svg', '*.ttf']);
-
-  return gulp.src(gnf())
-
-  // css from npm_components, minified
-  .pipe(cssFilter)
-  .pipe(gulp.dest(p.distCss))
-  .pipe(minifycss())
-  .pipe(rename({
-    suffix: ".min"
-  }))
-  .pipe(gulp.dest(p.distCss))
-  .pipe(cssFilter.restore())
-
-  // font files from npm_components
-  .pipe(fontFilter)
-  .pipe(flatten())
-  .pipe(gulp.dest(p.distFont));
+  gulp.src('./node_modules/normalize.css/normalize.css')
+    .pipe(minifycss())
+    .pipe(rename({suffix: ".min"}))
+    .pipe(gulp.dest(p.distCss));
 });
 
 gulp.task('libs', function() {
-  gulp.start(['modernizr', 'npm-libs', 'fonts']);
+  gulp.start(['npm-libs']);
 });
 
 gulp.task('watchTask', function() {
@@ -152,4 +111,3 @@ gulp.task('build', ['clean'], function() {
 gulp.task('default', function() {
   console.log('Run "gulp watch or gulp build"');
 });
-

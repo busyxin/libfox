@@ -39,7 +39,7 @@ var LandingPage = React.createClass({
           </div>
           <div className="video-wrapper">
             <div className="filter"></div>
-            <video autoPlay loop className="fillHeight">
+            <video autoPlay loop className="fillWidth">
                 <source src="For_wes/For_wes.mp4" type="video/mp4" />Your browser does not support the video tag. I suggest you upgrade your browser.
                 <source src="For_wes/For_wes.webm" type="video/webm" />Your browser does not support the video tag. I suggest you upgrade your browser.
             </video>
