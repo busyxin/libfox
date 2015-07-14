@@ -1,6 +1,10 @@
 {
   "name": "xin-frontend",
-  "version": "0.0.0",
+  "description": "Stack for a flux-react-material frontend"
+  "version": "0.0.1",
+  "licenses" : 
+    {   "type": "MIT", 
+        "url": "http://www.opensource.org/licenses/mit-license.php"},
   "repository": {
     "type": "git",
     "url": "https://github.com/busyxin/libfox.git"
