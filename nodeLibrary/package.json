@@ -1,6 +1,6 @@
 {
   "name": "xin-frontend",
-  "description": "Stack for a flux-react-material frontend"
+  "description": "Stack for a flux-react-material frontend",
   "version": "0.0.1",
   "licenses" : 
     {   "type": "MIT", 
