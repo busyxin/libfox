@@ -37,8 +37,10 @@ var BooksPage = React.createClass({
     return (
       <div>
         {errors}
-        <div className="row">
-          <BooksList books={this.state.books} />
+        <div className="container">
+          <div className="row">
+            <BooksList books={this.state.books} />
+          </div>
         </div>
       </div>
     );
@@ -46,11 +48,16 @@ var BooksPage = React.createClass({
 });
 
 var BookItem = React.createClass({
+
   render: function() {
+
+    var imgCover = {
+      backgroundImage: 'url(' + this.props.book.img_url + ')'
+    };
+
     return (
-        <div className="book">
-          <Link to="book" params={ {bookId: this.props.book.id} }>
-            <div className="book__cover"></div>
+        <div className="book z-depth-1">
+            <div className="book__cover" style={imgCover}></div>
             <div className="book__author">
                 {this.props.book.author}
             </div>
@@ -62,9 +69,8 @@ var BookItem = React.createClass({
                 {this.props.book.summary}
               </p>
             </div>
-            <div className="book__bottom white-text green lighten-2">
-              Available
-            </div>
+          <Link to="book" params={ {bookId: this.props.book.id} }>
+            <div className="book__bottom white-text">Available</div>
           </Link>
         </div>
       );

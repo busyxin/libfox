@@ -24,17 +24,28 @@ var LandingPage = React.createClass({
   },
 
   render: function() {
-    console.log("landing page");
     var errors = (this.state.errors.length > 0) ? <ErrorNotice errors={this.state.errors}/> : <div></div>;
     var OauthPath = LibraryConstants.APIEndpoints.OAUTH;
     return (
-      <div>
-        {errors}
-        <div className="row">
-          <div className="card card--login small-10 medium-6 large-4 columns small-centered">
-            <a href={OauthPath}>
-              <button>login with your company google account</button>
+      <div className="landing-page">
+        <div className="homepage-hero-module">
+          {errors}
+          <div className="landing__box">
+            <h1>Learn something new</h1>
+            <h2>Read a book!</h2>
+            <a href={OauthPath} className="waves-effect waves-light btn-large green btn__oauth">
+              login with your company google account
             </a>
+          </div>
+          <div className="video-wrapper">
+            <div className="filter"></div>
+            <video autoPlay loop className="fillHeight">
+                <source src="For_wes/For_wes.mp4" type="video/mp4" />Your browser does not support the video tag. I suggest you upgrade your browser.
+                <source src="For_wes/For_wes.webm" type="video/webm" />Your browser does not support the video tag. I suggest you upgrade your browser.
+            </video>
+            <div className="poster hidden">
+              <img src="For_wes/For_wes.jpg" alt=""/>
+            </div>
           </div>
         </div>
       </div>

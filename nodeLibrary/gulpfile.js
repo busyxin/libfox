@@ -3,7 +3,7 @@
 var gulp = require('gulp'),
     gulpFilter = require('gulp-filter'),
     flatten = require('gulp-flatten'),
-    mainBowerFiles = require('main-bower-files'),
+    gnf = require('gulp-npm-files'),
     rename = require("gulp-rename"),
     minifycss = require('gulp-minify-css'),
     changed = require('gulp-changed'),
@@ -19,6 +19,7 @@ var gulp = require('gulp'),
     del = require('del'),
     notify = require('gulp-notify'),
     browserSync = require('browser-sync'),
+    modernizr = require('gulp-modernizr'),
     reload = browserSync.reload,
     p = {
       jsx: './scripts/app.jsx',
@@ -87,30 +88,35 @@ gulp.task('styles', function() {
     .pipe(reload({stream: true}));
 });
 
-// Ugly hack to bring modernizr in
 gulp.task('modernizr', function() {
-  return gulp.src('bower_components/modernizr/modernizr.js')
-  .pipe(gulp.dest(p.distJs));
+  gulp.src('./js/*.js')
+    .pipe(modernizr())
+    .pipe(gulp.dest(p.distJs))
 });
 
-gulp.task('bower-libs', function() {
+gulp.task('npm-libs', function() {
+
   var jsFilter = gulpFilter('*.js');
   var cssFilter = gulpFilter('*.css');
   var fontFilter = gulpFilter(['*.eot', '*.woff', '*.svg', '*.ttf']);
 
-  return gulp.src(mainBowerFiles())
+  gulp.src('./node_modules/jquery/dist/jquery.min.js')
+      .pipe(gulp.dest(p.distJs));
 
-  // JS from bower_components
-  .pipe(jsFilter)
-  .pipe(gulp.dest(p.distJs))
-  .pipe(uglify())
-  .pipe(rename({
-    suffix: ".min"
-  }))
-  .pipe(gulp.dest(p.distJs))
-  .pipe(jsFilter.restore())
+  gulp.src('./node_modules/materialize-css/bin/materialize.js')
+      .pipe(gulp.dest(p.distJs))
+      .pipe(uglify())
+      .pipe(rename({
+        suffix: ".min"
+      }))
+      .pipe(gulp.dest(p.distJs))
+      .pipe(jsFilter.restore());
 
-  // css from bower_components, minified
+  var fontFilter = gulpFilter(['*.eot', '*.woff', '*.svg', '*.ttf']);
+
+  return gulp.src(gnf())
+
+  // css from npm_components, minified
   .pipe(cssFilter)
   .pipe(gulp.dest(p.distCss))
   .pipe(minifycss())
@@ -120,14 +126,14 @@ gulp.task('bower-libs', function() {
   .pipe(gulp.dest(p.distCss))
   .pipe(cssFilter.restore())
 
-  // font files from bower_components
+  // font files from npm_components
   .pipe(fontFilter)
   .pipe(flatten())
   .pipe(gulp.dest(p.distFont));
 });
 
 gulp.task('libs', function() {
-  gulp.start(['modernizr', 'bower-libs', 'fonts']);
+  gulp.start(['modernizr', 'npm-libs', 'fonts']);
 });
 
 gulp.task('watchTask', function() {

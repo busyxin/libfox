@@ -10,10 +10,29 @@ var Header = React.createClass({
     isLoggedIn: ReactPropTypes.bool,
     email: ReactPropTypes.string
   },
+
   logout: function(e) {
     e.preventDefault();
     SessionActionCreators.logout();
   },
+  
+  componentDidMount: function() {
+    //There must be a better way
+    $(document).ready(function() {
+      $('.dropdown-button', React.findDOMNode(this)).each(function() {
+        var $that = $(this);
+        $that.dropdown({
+          inDuration: 300,
+          outDuration: 225,
+          constrain_width: $that.hasClass("constrainWidth"),
+          hover: false,
+          gutter: 0,
+          belowOrigin: true
+        });
+      });
+    });
+  },
+
   render: function() {
     //Swap loggedIn DOM when sessions are implemented
     var leftNav = this.props.isLoggedIn ? (
@@ -37,7 +56,7 @@ var Header = React.createClass({
       <div className="navbar-fixed">
 
         <ul id="dropdown1" className="dropdown-content">
-          <li><a href="#">All Categories</a></li>
+          <li><a href="#/books">All Categories</a></li>
           <li className="divider"></li>
           <li><a href="#">Accounting</a></li>
           <li className="divider"></li>
