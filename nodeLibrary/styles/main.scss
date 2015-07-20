@@ -133,7 +133,7 @@ nav {
 .book_catalog_container {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .book {
@@ -147,10 +147,16 @@ nav {
   text-decoration: none;
   overflow: hidden;
 
-  &:hover .book__bottom {
-    background: #4caf50
-    //green base
-    //{map-get($green, base)};
+  &:hover .book___bottom___available {
+    background: #4caf50;
+  }
+
+  &:hover .book___bottom___borrowed {
+    background: #FFC107;
+  }
+
+  &:hover .book___bottom___lost {
+    background: #F44336;
   }
 }
 
@@ -210,6 +216,14 @@ nav {
   will-change: background-color;
   background-color: #81c784
   //{map-get($green, lighten-2)};
+}
+
+.book___bottom___borrowed {
+  background: orange;
+}
+
+.book___bottom___lost {
+  background: red;
 }
 
 //Book details page

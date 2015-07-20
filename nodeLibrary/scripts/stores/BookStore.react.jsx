@@ -70,6 +70,30 @@ BookStore.dispatchToken = LibraryAppDispatcher.register(function(payload) {
       }
       BookStore.emitChange();
       break;
+
+    case ActionTypes.BORROW_BOOK:
+    console.log("Dispatching borrow")
+      if (action.json) {
+        _book = action.json.book;
+        _errors = [];
+      }
+      if (action.errors) {
+        _errors = action.errors;
+      }
+      BookStore.emitChange();
+      break;
+
+    case ActionTypes.RETURN_BOOK:
+        console.log("Dispatching return")
+      if (action.json) {
+        _book = action.json.book;
+        _errors = [];
+      }
+      if (action.errors) {
+        _errors = action.errors;
+      }
+      BookStore.emitChange();
+      break;
   }
 
   return true;

@@ -47,7 +47,7 @@ var Header = React.createClass({
     var rightNav = this.props.isLoggedIn ? (
         <div></div>
       ) : (
-        <ul className="right">
+        <ul className="right hide-on-med-and-down ">
           <li><a className="dropdown-button constrainWidth" href="#!" data-activates="dropdown2">chin.man.yeung@hitfoxgroup.com<i className="material-icons right">arrow_drop_down</i></a></li>
         </ul>
       );

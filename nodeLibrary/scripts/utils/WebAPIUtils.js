@@ -43,14 +43,24 @@ module.exports = {
   },
 
   updateBookStatus: function(bookId, action) {
-    request.post(APIEndpoints.BOOKS + "/" + bookId)
+
+    //Better done via Put or Patch?
+    if (action === "RETURN_BOOK") {
+      action = "return";
+    }else {
+      action = "borrow";
+    }
+
+    request.post(APIEndpoints.BOOKS + "/" + bookId + "/" + action)
       .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
       .set('Authorization', sessionStorage.getItem('accessToken'))
       .send({"action": action})
       .end(function(error, res){
         if (res) {
-          alert("success");
           console.log(res);
+          var json = JSON.parse(res.text);
+          ServerActionCreators.receiveBook(json);
         }
       });
   }

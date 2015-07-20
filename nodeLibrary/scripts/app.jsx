@@ -1,7 +1,13 @@
-var React = require('react');
-var router = require('./stores/RouteStore.react.jsx').getRouter();
-window.React = React;
+(function() {
+	let React = require('react');
+	let injectTapEventPlugin = require('react-tap-event-plugin');
+	let router = require('./stores/RouteStore.react.jsx').getRouter();
 
-router.run(function (Handler, state) {
-  React.render(<Handler/>, document.getElementById('content'));
-});
+	window.React = React;
+
+	injectTapEventPlugin();
+
+	router.run(function (Handler, state) {
+	  React.render(<Handler/>, document.getElementById('content'));
+	});
+})();

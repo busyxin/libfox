@@ -20,8 +20,10 @@ class BooksController < ApplicationController
         return_date: Time.now + 2.weeks,
         status: 'borrowed'})
 
-      if @borrow.save
-        head :no_content
+      @book.update(status: 'borrowed')
+
+      if @borrow.save && @book.save
+        render json: @book
       else
         render json: @book.errors, status: :unprocessable_entity
       end
@@ -37,10 +39,12 @@ class BooksController < ApplicationController
     @borrow = Borrow.where(book_id: @book.id, status: 'borrowed').first    
 
     if @borrow.present?
-      @borrow.status = 'returned'
 
-      if @borrow.save
-        head :no_content
+      @borrow.status = 'returned'
+      @book.update(status: 'available')
+
+      if @borrow.save && @book.save
+        render json: @book
       else
         render json: @book.errors, status: :unprocessable_entity
       end
@@ -71,8 +75,15 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-    @book = Book.find(params[:id])
+    puts params[:id]
+    puts params[:action]
 
+    if params[:action] == "RETURN_BOOK" 
+      @book.return()
+    elseif params[:action] == "BORROW_BOOK"
+      @book.borrow()
+    end
+ 
     if @book.update(book_params)
       head :no_content
     else

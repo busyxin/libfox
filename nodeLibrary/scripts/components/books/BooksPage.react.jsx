@@ -53,6 +53,17 @@ var BooksPage = React.createClass({
 
 var BookItem = React.createClass({
 
+  getBookStatus: function(status) {
+    var statusMsg = {
+      "available": "Available",
+      "borrowed": "Borrowed",
+      "lost": "Lost"
+    }[status];
+
+    if (!statusMsg) statusMsg = "Unavailable";
+    return statusMsg;
+  },
+
   render: function() {
 
     var imgCover = {
@@ -74,7 +85,7 @@ var BookItem = React.createClass({
               </p>
             </div>
           <Link to="book" params={ {bookId: this.props.book.id} }>
-            <div className="book__bottom white-text">Available</div>
+            <div className={"book__bottom white-text book___bottom___" + this.props.book.status }>{this.getBookStatus(this.props.book.status)}</div>
           </Link>
         </div>
       );

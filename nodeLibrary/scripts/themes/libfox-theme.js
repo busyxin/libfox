@@ -1,27 +1,34 @@
-var Colors = require('../../node_modules/material-ui/src/styles/colors');
-var Spacing = require('../../node_modules/material-ui/src/styles/spacing');
-var ColorManipulator = require('../../node_modules/material-ui/src/utils/color-manipulator');
+let Colors = require('../../node_modules/material-ui/src/styles/colors');
+let Spacing = require('../../node_modules/material-ui/src/styles/spacing');
+let ColorManipulator = require('../../node_modules/material-ui/src/utils/color-manipulator');
 
-var LibfoxTheme = {
+
+/**
+ *  Light Theme is the default theme used in material-ui. It is guaranteed to
+ *  have all theme variables needed for every component. Variables not defined
+ *  in a custom theme will default to these values.
+ */
+
+let LibfoxTheme = {
   spacing: Spacing,
   contentFontFamily: 'Roboto, sans-serif',
   getPalette() {
     return {
       primary1Color: Colors.green500,
-      primary2Color: Colors.green700,
-      primary3Color: Colors.green200,
+      primary2Color: Colors.cyan700,
+      primary3Color: Colors.cyan100,
       accent1Color: Colors.pinkA200,
       accent2Color: Colors.pinkA400,
       accent3Color: Colors.pinkA100,
       textColor: Colors.darkBlack,
       canvasColor: Colors.white,
       borderColor: Colors.grey300,
-      disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3)
+      disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3),
     };
   },
   getComponentThemes(palette, spacing) {
     spacing = spacing || Spacing;
-    var obj = {
+    let obj = {
       appBar: {
         color: palette.primary1Color,
         textColor: Colors.darkWhite,
@@ -31,8 +38,6 @@ var LibfoxTheme = {
         height: 36,
         minWidth: 88,
         iconButtonSize: spacing.iconSize * 2,
-        color: Colors.white,
-        backgroundColor: palette.primary1Color
       },
       checkbox: {
         boxColor: palette.textColor,
@@ -103,12 +108,14 @@ var LibfoxTheme = {
         labelDisabledColor: palette.disabledColor,
       },
       raisedButton: {
-        color: Colors.white,
-        textColor: palette.textColor,
+        margin: 10,
+        color: palette.primary1Color,
+        textColor: Colors.white,
         primaryColor: palette.accent1Color,
-        primaryTextColor: Colors.white,
+        primaryTextColor: Colors.black,
         secondaryColor: palette.primary1Color,
         secondaryTextColor: Colors.white,
+        disabledColor: palette.disabledColor,
       },
       slider: {
         trackSize: 2,
@@ -208,3 +215,4 @@ var LibfoxTheme = {
 };
 
 module.exports = LibfoxTheme;
+
