@@ -20,6 +20,13 @@ module.exports = {
     });
   },
 
+  receiveBorrowed: function(json) {
+    LibraryAppDispatcher.handleServerAction({
+      type: ActionTypes.RECEIVE_BORROWED,
+      json: json
+    });
+  },
+
   receiveBook: function(json) {
     LibraryAppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_BOOK,

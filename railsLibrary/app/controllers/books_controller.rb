@@ -8,21 +8,30 @@ class BooksController < ApplicationController
     render json: @books
   end
 
+  # GET /books/user/:id
+  def borrowed
+    books_ids = Borrow.where(user_id: params[:id], status: 'borrowed').pluck(:book_id)
+    @books = Book.find(books_ids)
+    puts @books
+    render json: @books
+  end
+
   # PATCH/PUT /books/borrow'
   def borrow
     @book = Book.find(params[:id])
 
     if Borrow.where(book_id: @book.id, status: 'borrowed').blank?
 
-      @borrow = Borrow.new({user_id: 1,
+      #Originally Borrow.new, using Borrow.create to persist and retrieve id
+      @borrow = Borrow.create({user_id: 1,
         book_id: @book.id,
         borrowed_date: Time.now,
         return_date: Time.now + 2.weeks,
         status: 'borrowed'})
 
-      @book.update(status: 'borrowed')
+      @book.update(status: 'borrowed', borrow_id: @borrow.id)
 
-      if @borrow.save && @book.save
+      if @book.save
         render json: @book
       else
         render json: @book.errors, status: :unprocessable_entity
@@ -75,8 +84,6 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-    puts params[:id]
-    puts params[:action]
 
     if params[:action] == "RETURN_BOOK" 
       @book.return()
@@ -95,7 +102,6 @@ class BooksController < ApplicationController
   # DELETE /books/1.json
   def destroy
     @book.destroy
-
     head :no_content
   end
 

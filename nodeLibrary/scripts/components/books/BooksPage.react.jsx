@@ -3,13 +3,13 @@ var WebAPIUtils = require('../../utils/WebAPIUtils.js');
 var BookStore = require('../../stores/BookStore.react.jsx');
 var ErrorNotice = require('../../components/common/ErrorNotice.react.jsx');
 var BookActionCreators = require('../../actions/BookActionCreators.react.jsx');
+var LibfoxTheme = require('../../themes/libfox-theme.js');
 
 var Router = require('react-router');
 var Link = Router.Link;
 
 var Mui = require('material-ui');
 var ThemeManager = new Mui.Styles.ThemeManager();
-var RaisedButton = Mui.RaisedButton;
 
 var BooksPage = React.createClass({
 
@@ -21,6 +21,7 @@ var BooksPage = React.createClass({
   },
  
   componentDidMount: function() {
+    ThemeManager.setTheme(LibfoxTheme);
     BookStore.addChangeListener(this._onChange);
     BookActionCreators.loadBooks();
   },

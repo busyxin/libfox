@@ -9,6 +9,7 @@ class CreateBooks < ActiveRecord::Migration
       t.string :publisher
       t.date :publication_date
       t.string :language
+      t.references :borrow
 
       t.timestamps null: false
     end

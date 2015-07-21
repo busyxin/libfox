@@ -42,14 +42,25 @@ module.exports = {
       });
   },
 
+  loadBorrowed: function(userId) {
+    request.get(APIEndpoints.BOOKS + '/user/' + userId)
+      .set('Accept', 'application/json')
+      .set('Authorization', sessionStorage.getItem('accessToken'))
+      .end(function(error, res){
+        if (res) {
+          var json = JSON.parse(res.text);
+          ServerActionCreators.receiveBorrowed(json);
+        }
+      });
+  },
+
   updateBookStatus: function(bookId, action) {
 
     //Better done via Put or Patch?
-    if (action === "RETURN_BOOK") {
-      action = "return";
-    }else {
-      action = "borrow";
-    }
+    action = {
+      "BORROW_BOOK": "borrow",
+      "RETURN_BOOK": "return"
+    }[action];
 
     request.post(APIEndpoints.BOOKS + "/" + bookId + "/" + action)
       .set('Accept', 'application/json')

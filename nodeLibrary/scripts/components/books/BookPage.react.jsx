@@ -37,12 +37,12 @@ var BookPage = React.createClass({
   },
  
   componentDidMount: function() {
+    ThemeManager.setTheme(LibfoxTheme);
     BookStore.addChangeListener(this._onChange);
     BookActionCreators.loadBook(this.getParams().bookId);
   },
 
   componentWillUnmount: function() {
-    ThemeManager.setTheme(LibfoxTheme);
     BookStore.removeChangeListener(this._onChange);
   },
 
@@ -113,6 +113,7 @@ var BookPage = React.createClass({
                 </div>
               </div>
               <div className="col s12 m7 l4 center-align">
+                
                 <Dialog
                   autoDetectWindowHeight={true}
                   modal={false}
@@ -121,8 +122,19 @@ var BookPage = React.createClass({
                   autoScrollBodyContent={true}>
                   <img src={this.state.book.img_url} alt={this.state.book.title} />
                 </Dialog>
+                
                 <div className="book__details__img z-depth-1"><img src={this.state.book.img_url} alt={this.state.book.title} onClick={this._handleTouchTap}/></div>
-                <RaisedButton className={"book__details__button_" + this.state.book.status} disabled={!this.isAvailable() && !this.isBorrowed()} onClick={this.handleBook} label={this.getStatusMsg()} />
+                
+                <RaisedButton 
+                  className={"book__details__button_" + this.state.book.status} 
+                  disabled={!this.isAvailable() && !this.isBorrowed()} 
+                  onClick={this.handleBook} 
+                  label={this.getStatusMsg()} 
+                  style={{
+                    width: '100%',
+                    margin: '25px auto'
+                  }}/>
+
                 <div className="book__details__isbn">{this.state.book.isbn}</div>
               </div>
             </div>

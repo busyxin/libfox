@@ -1,8 +1,8 @@
 require 'faker'
 
-#10.times do
-#  User.create(email: Faker::Internet.email, username: Faker::Internet.user_name, password: 'password')
-#end
+10.times do
+  User.create(email: Faker::Internet.email, username: Faker::Internet.user_name, password: 'password')
+end
 
 Book.create(
   title: "Adobe InDesign CC: Das umfassende Handbuch",
@@ -29,6 +29,13 @@ Book.create(
   status: "borrowed",
   language: "German")
 
+Borrow.create(
+  user_id: 1,
+  book_id: 2,
+  borrowed_date: Faker::Date.backward(300),
+  return_date: Faker::Date.backward(286),
+  status: "borrowed")
+
 Book.create(
   title: "ETF Investment Strategies: Best Practices from Leading Experts on Constructing a Winning Etf Portfolio",
   author: "Aniket Ullal, Ullal Aniket",
@@ -42,6 +49,12 @@ Book.create(
   status: "borrowed",
   language: "English")
 
+Borrow.create(
+  user_id: 1,
+  book_id: 3,
+  borrowed_date: Faker::Date.backward(300),
+  return_date: Faker::Date.backward(286),
+  status: "borrowed")
 
 10.times do
   Book.create(

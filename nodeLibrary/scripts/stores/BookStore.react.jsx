@@ -8,6 +8,7 @@ var ActionTypes = LibraryConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var _books = [];
+var _borrowed = [];
 var _errors = [];
 var _book = { title: "", summary: "", user: { username: "" }, img_url: "", status: "" };
 
@@ -25,6 +26,10 @@ var BookStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
+  getAllBorrowed: function() {
+    return _borrowed;
+  },
+
   getAllBooks: function() {
     return _books;
   },
@@ -36,7 +41,7 @@ var BookStore = assign({}, EventEmitter.prototype, {
   getErrors: function() {
     return _errors;
   }
-
+  
 });
 
 BookStore.dispatchToken = LibraryAppDispatcher.register(function(payload) {
@@ -49,42 +54,14 @@ BookStore.dispatchToken = LibraryAppDispatcher.register(function(payload) {
       BookStore.emitChange();
       break;
 
-    case ActionTypes.RECEIVE_CREATED_BOOK:
-      if (action.json) {
-        _books.unshift(action.json.book);
-        _errors = [];
-      }
-      if (action.errors) {
-        _errors = action.errors;
-      }
+    case ActionTypes.RECEIVE_BORROWED:
+      _books = action.json.books;
       BookStore.emitChange();
       break;
     
     case ActionTypes.RECEIVE_BOOK:
-      if (action.json) {
-        _book = action.json.book;
-        _errors = [];
-      }
-      if (action.errors) {
-        _errors = action.errors;
-      }
-      BookStore.emitChange();
-      break;
-
     case ActionTypes.BORROW_BOOK:
-    console.log("Dispatching borrow")
-      if (action.json) {
-        _book = action.json.book;
-        _errors = [];
-      }
-      if (action.errors) {
-        _errors = action.errors;
-      }
-      BookStore.emitChange();
-      break;
-
     case ActionTypes.RETURN_BOOK:
-        console.log("Dispatching return")
       if (action.json) {
         _book = action.json.book;
         _errors = [];

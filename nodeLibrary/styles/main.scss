@@ -214,8 +214,7 @@ nav {
   align-self: flex-end;
   transition: all 0.3s ease;
   will-change: background-color;
-  background-color: #81c784
-  //{map-get($green, lighten-2)};
+  background-color: #81c784;
 }
 
 .book___bottom___borrowed {
@@ -246,7 +245,6 @@ nav {
   margin: 25px auto;
   width: 100%;
   background: #81c784
-  //{map-get($green, lighten-2)};
 }
 
 .book__details__img img {

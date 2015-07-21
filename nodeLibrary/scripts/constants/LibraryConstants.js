@@ -24,8 +24,10 @@ module.exports = {
     // Routes
     REDIRECT: null,
     RECEIVE_BOOKS: null,
+    RECEIVE_BORROWED: null,
     RECEIVE_BOOK: null,
     LOAD_BOOKS: null,
+    LOAD_BORROWED: null,
     LOAD_BOOK: null,
 
     BORROW_BOOK: null,

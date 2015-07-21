@@ -39,7 +39,7 @@ var Header = React.createClass({
         <div></div>
       ) : (
         <ul className="left hide-on-med-and-down">
-          <li><a href="#!">My books</a></li>
+          <li><a href="#/borrowed">My books</a></li>
           <li><a className="dropdown-button" href="#!" data-activates="dropdown1">Browse<i className="material-icons right">arrow_drop_down</i></a></li>
         </ul>
       );

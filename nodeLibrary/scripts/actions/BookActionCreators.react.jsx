@@ -1,7 +1,6 @@
 var LibraryAppDispatcher = require('../dispatcher/LibraryAppDispatcher.js');
 var LibraryConstants = require('../constants/LibraryConstants.js');
 var WebAPIUtils = require('../utils/WebAPIUtils.js');
-
 var ActionTypes = LibraryConstants.ActionTypes;
 
 module.exports = {
@@ -19,6 +18,13 @@ module.exports = {
       bookId: bookId
     });
     WebAPIUtils.loadBook(bookId);
+  },
+
+  loadBorrowed: function(userId) {
+    LibraryAppDispatcher.handleViewAction({
+      type: ActionTypes.LOAD_BORROWED
+    });
+    WebAPIUtils.loadBorrowed(userId);
   },
 
   borrowBook: function(bookId) {
