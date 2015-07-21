@@ -56,6 +56,21 @@ Borrow.create(
   return_date: Faker::Date.backward(286),
   status: "borrowed")
 
+Category.create(
+  name: "Technology")
+
+Category.create(
+  name: "Accounting")
+
+Category.create(
+  name: "Business & Economics")
+
+Category.create(
+  name: "Design")
+
+Category.create(
+  name: "Management")
+
 10.times do
   Book.create(
   	title: Faker::App.name,

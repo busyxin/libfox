@@ -1,31 +1,32 @@
 'use strict';
 
-var gulp = require('gulp'),
-    gulpFilter = require('gulp-filter'),
-    flatten = require('gulp-flatten'),
-    rename = require("gulp-rename"),
-    minifycss = require('gulp-minify-css'),
-    changed = require('gulp-changed'),
-    sass = require('gulp-sass'),
-    csso = require('gulp-csso'),
-    autoprefixer = require('gulp-autoprefixer'),
-    browserify = require('browserify'),
-    watchify = require('watchify'),
-    source = require('vinyl-source-stream'),
-    buffer = require('vinyl-buffer'),
-    uglify = require('gulp-uglify'),
-    del = require('del'),
-    notify = require('gulp-notify'),
-    browserSync = require('browser-sync'),
-    reload = browserSync.reload,
+var autoprefixer = require('gulp-autoprefixer'),
     babelify = require('babelify'),
+    browserify = require('browserify'),
+    browserSync = require('browser-sync'),
+    buffer = require('vinyl-buffer'),
+    changed = require('gulp-changed'),
+    csso = require('gulp-csso'),
+    del = require('del'),
+    flatten = require('gulp-flatten'),
+    gulp = require('gulp'),
+    gulpFilter = require('gulp-filter'),
+    jshint = require('gulp-jshint'),
+    minifycss = require('gulp-minify-css'),
+    notify = require('gulp-notify'),
+    reload = browserSync.reload,
+    rename = require("gulp-rename"),
+    watchify = require('watchify'),
+    sass = require('gulp-sass'),
+    source = require('vinyl-source-stream'),
+    uglify = require('gulp-uglify'),
     p = {
+      bundle: 'app.js',
+      distCss: 'dist/css',
+      distJs: 'dist/js',
       jsx: './scripts/app.jsx',
       scss: 'styles/main.scss',
-      scssSource: 'styles/*',
-      bundle: 'app.js',
-      distJs: 'dist/js',
-      distCss: 'dist/css'
+      scssSource: 'styles/*'
     };
 
 gulp.task('clean', function(cb) {
@@ -76,7 +77,6 @@ gulp.task('styles', function() {
 });
 
 gulp.task('npm-libs', function() {
-
   gulp.src('./node_modules/jquery/dist/jquery.min.js')
     .pipe(gulp.dest(p.distJs));
 
@@ -91,8 +91,10 @@ gulp.task('npm-libs', function() {
     .pipe(gulp.dest(p.distCss));
 });
 
-gulp.task('libs', function() {
-  gulp.start(['npm-libs']);
+gulp.task('lint', function() {
+  return gulp.src('./scripts/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
 });
 
 gulp.task('watchTask', function() {
@@ -100,12 +102,12 @@ gulp.task('watchTask', function() {
 });
 
 gulp.task('watch', ['clean'], function() {
-  gulp.start(['libs', 'browserSync', 'watchTask', 'watchify', 'styles']);
+  gulp.start(['npm-libs', 'lint', 'browserSync', 'watchTask', 'watchify', 'styles']);
 });
 
 gulp.task('build', ['clean'], function() {
   process.env.NODE_ENV = 'production';
-  gulp.start(['libs', 'browserify', 'styles']);
+  gulp.start(['npm-libs', 'browserify', 'styles']);
 });
 
 gulp.task('default', function() {

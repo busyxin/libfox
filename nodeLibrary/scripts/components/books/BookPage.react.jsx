@@ -3,6 +3,7 @@ var WebAPIUtils = require('../../utils/WebAPIUtils.js');
 var BookStore = require('../../stores/BookStore.react.jsx');
 var BookActionCreators = require('../../actions/BookActionCreators.react.jsx');
 var State = require('react-router').State;
+var Navigation = require('react-router').Navigation;
 var LibfoxTheme = require('../../themes/libfox-theme.js');
 
 var Router = require('react-router');
@@ -12,12 +13,13 @@ var LibfoxTheme = require('../../themes/libfox-theme.js');
 var Mui = require('material-ui');
 var ThemeManager = new Mui.Styles.ThemeManager();
 
+var Snackbar = Mui.Snackbar;
 var RaisedButton = Mui.RaisedButton;
 var Dialog = Mui.Dialog;
 
 var BookPage = React.createClass({
   
-  mixins: [ State ],
+  mixins: [ State, Navigation ],
 
   childContextTypes: {
     muiTheme: React.PropTypes.object
@@ -47,8 +49,6 @@ var BookPage = React.createClass({
   },
 
   _onChange: function() {
-    console.log("Change detected")
-    console.log(BookStore.getBook())
     this.setState({ 
       book: BookStore.getBook(),
       errors: BookStore.getErrors()
@@ -58,9 +58,15 @@ var BookPage = React.createClass({
   handleBook: function(event) {
     if (this.isAvailable()) {
       BookActionCreators.borrowBook(this.getParams().bookId);  
+      this.refs.borrowedSnackbar.show();
     } else if (this.isBorrowed()) {
       BookActionCreators.returnBook(this.getParams().bookId);  
+      this.refs.returnedSnackbar.show();
     }
+  },
+
+  _handleTouchTap: function() {
+    this.refs.bookCoverDialog.show();
   },
 
   getStatusMsg: function() {
@@ -88,10 +94,6 @@ var BookPage = React.createClass({
     return this.state.book.status === "borrowed";
   },
 
-  _handleTouchTap: function() {
-    this.refs.bookCoverDialog.show();
-  },
-
   render: function() {
 
   let standardActions = [
@@ -111,6 +113,24 @@ var BookPage = React.createClass({
                     {this.state.book.summary}
                   </p>
                 </div>
+                
+                <div className="book__details__categories">
+                  <ul className="book__details__categories__tokens">
+                    <li>Computer Science</li>
+                    <li>Big Data</li>
+                    <li>Trololo</li>
+                    <li>Startups</li>
+                  </ul>
+                </div>
+
+                <div className="book__details__hitfox_id">HitFox Internal Id: {this.state.book.hitfox_id}</div>  
+                <div className="book__details__created_date">Added to HitFox on: {this.state.book.created_at}</div>  
+
+                <div className="book__details__isbn">ISBN: {this.state.book.isbn}</div>
+                <div className="book__details__publisher">Publisher: {this.state.book.publisher}</div>
+                <div className="book__details__publication_date">Publication date: {this.state.book.publication_date}</div>
+                <div className="book__details__language">Language: {this.state.book.language}</div> 
+
               </div>
               <div className="col s12 m7 l4 center-align">
                 
@@ -124,7 +144,17 @@ var BookPage = React.createClass({
                 </Dialog>
                 
                 <div className="book__details__img z-depth-1"><img src={this.state.book.img_url} alt={this.state.book.title} onClick={this._handleTouchTap}/></div>
-                
+
+                <Snackbar 
+                  message="The book has been borrowed."
+                  ref="borrowedSnackbar"
+                  action="ok"/>
+
+                <Snackbar 
+                  message="The book has been returned."
+                  ref="returnedSnackbar"
+                  action="ok"/>
+
                 <RaisedButton 
                   className={"book__details__button_" + this.state.book.status} 
                   disabled={!this.isAvailable() && !this.isBorrowed()} 
@@ -135,7 +165,7 @@ var BookPage = React.createClass({
                     margin: '25px auto'
                   }}/>
 
-                <div className="book__details__isbn">{this.state.book.isbn}</div>
+                <div className="link" onClick={() => this.goBack()}>Go back</div>
               </div>
             </div>
           </div>

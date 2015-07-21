@@ -23,15 +23,15 @@ class BooksController < ApplicationController
     if Borrow.where(book_id: @book.id, status: 'borrowed').blank?
 
       #Originally Borrow.new, using Borrow.create to persist and retrieve id
-      @borrow = Borrow.create({user_id: 1,
+      @borrow = Borrow.new({user_id: 1,
         book_id: @book.id,
         borrowed_date: Time.now,
         return_date: Time.now + 2.weeks,
         status: 'borrowed'})
 
-      @book.update(status: 'borrowed', borrow_id: @borrow.id)
+      @book.update(status: 'borrowed')
 
-      if @book.save
+      if @book.save && @borrow.save
         render json: @book
       else
         render json: @book.errors, status: :unprocessable_entity
@@ -45,7 +45,9 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/return'
   def return
     @book = Book.find(params[:id])
-    @borrow = Borrow.where(book_id: @book.id, status: 'borrowed').first    
+    @borrow = Borrow.where(book_id: @book.id, status: 'borrowed').first  
+
+    puts @borrow  
 
     if @borrow.present?
 

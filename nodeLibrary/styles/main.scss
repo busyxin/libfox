@@ -1,8 +1,6 @@
-@import 'spinner';
 @import '../../node_modules/materialize-css/bin/materialize.css';
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,500);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
-
 
 @mixin ellipsis ($max-height, $lines: 2) {
   text-rendering: optimizeLegibility;
@@ -37,6 +35,19 @@ nav {
     a {
       color: black;
     }
+  }
+}
+
+.link {
+  color: #03a9f4;
+  cursor: pointer;
+  margin: -.5em;
+  padding: .5em;
+  position: relative;
+  display: inline-block;
+  transition: color 0.3s ease;
+  &:hover {
+    color: #01579b;
   }
 }
 
@@ -120,8 +131,10 @@ nav {
     z-index: 0;
     bottom: 0;
 }
-.video-wrapper video.fillWidth {
-    width: 100vw;
+.video-wrapper video.fillHeight {
+  margin-left: -50%;
+  height: 100vh;
+  left: 50vw;
 }
 
 .hidden {
