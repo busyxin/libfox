@@ -16,6 +16,7 @@ var ThemeManager = new Mui.Styles.ThemeManager();
 var Snackbar = Mui.Snackbar;
 var RaisedButton = Mui.RaisedButton;
 var Dialog = Mui.Dialog;
+var FontIcon = Mui.FontIcon;
 
 var BookPage = React.createClass({
   
@@ -65,6 +66,11 @@ var BookPage = React.createClass({
     }
   },
 
+  handleDismiss: function() {
+    this.refs.borrowedSnackbar.dismiss();
+    this.refs.returnedSnackbar.dismiss();
+  },
+
   _handleTouchTap: function() {
     this.refs.bookCoverDialog.show();
   },
@@ -108,19 +114,24 @@ var BookPage = React.createClass({
               <div className="col s12 m5 l8">
                 <div className="book__details__author">{this.state.book.author}</div>
                 <div className="book__details__title">{this.state.book.title}</div>
-                <div className="book__details__summary">
-                  <p className="book__details__summary__text">
-                    {this.state.book.summary}
-                  </p>
-                </div>
-                
+
                 <div className="book__details__categories">
                   <ul className="book__details__categories__tokens">
                     <li>Computer Science</li>
                     <li>Big Data</li>
                     <li>Trololo</li>
                     <li>Startups</li>
+                    <li>Computer Science</li>
+                    <li>Big Data</li>
+                    <li>Trololo</li>
+                    <li>Startups</li>
                   </ul>
+                </div>
+
+                <div className="book__details__summary">
+                  <p className="book__details__summary__text">
+                    {this.state.book.summary}
+                  </p>
                 </div>
 
                 <div className="book__details__hitfox_id">HitFox Internal Id: {this.state.book.hitfox_id}</div>  
@@ -148,12 +159,16 @@ var BookPage = React.createClass({
                 <Snackbar 
                   message="The book has been borrowed."
                   ref="borrowedSnackbar"
-                  action="ok"/>
+                  action="ok"
+                  autoHideDuration="3000"
+                  onActionTouchTap={this.handleDismiss}/>
 
                 <Snackbar 
                   message="The book has been returned."
                   ref="returnedSnackbar"
-                  action="ok"/>
+                  action="ok"
+                  autoHideDuration="3000"
+                  onActionTouchTap={this.handleDismiss}/>
 
                 <RaisedButton 
                   className={"book__details__button_" + this.state.book.status} 

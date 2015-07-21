@@ -14,7 +14,7 @@ let LibfoxTheme = {
   contentFontFamily: 'Roboto, sans-serif',
   getPalette() {
     return {
-      primary1Color: Colors.green500,
+      primary1Color: Colors.cyan300,
       primary2Color: Colors.cyan700,
       primary3Color: Colors.cyan100,
       accent1Color: Colors.pinkA200,
@@ -130,9 +130,10 @@ let LibfoxTheme = {
         rippleColor: palette.primary1Color,
       },
       snackbar: {
-        textColor: Colors.white,
-        backgroundColor: '#323232',
-        actionColor: palette.accent1Color,
+        textColor: Colors.black,
+        backgroundColor: Colors.white,
+        actionColor: palette.primary1Color,
+        borderColor: palette.borderColor,
       },
       table: {
         backgroundColor: Colors.white,
