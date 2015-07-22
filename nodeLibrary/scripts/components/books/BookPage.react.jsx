@@ -80,7 +80,7 @@ var BookPage = React.createClass({
       return "Return book"
     }
 
-    var statusMsg = {
+    let statusMsg = {
       "available": "Book it",
       "borrowed": "Borrowed",
       "lost": "Lost"
@@ -89,6 +89,11 @@ var BookPage = React.createClass({
     if (!statusMsg) statusMsg = "Unavailable";
 
     return statusMsg;
+  },
+
+  getFormattedDate: function(date) {
+    date = new Date(date);
+    return "" + date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
   },
 
   isAvailable: function() {
@@ -105,6 +110,15 @@ var BookPage = React.createClass({
   let standardActions = [
     { text: 'Close' }
   ];
+
+  let snackbarStyles = {
+    top: 0,
+    left: 0,
+    right: 0,
+    margin: "5% auto",
+    "max-width": "350px", 
+    "box-shadow": "0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+  };
 
     return (
       <div className="container">
@@ -134,14 +148,6 @@ var BookPage = React.createClass({
                   </p>
                 </div>
 
-                <div className="book__details__hitfox_id">HitFox Internal Id: {this.state.book.hitfox_id}</div>  
-                <div className="book__details__created_date">Added to HitFox on: {this.state.book.created_at}</div>  
-
-                <div className="book__details__isbn">ISBN: {this.state.book.isbn}</div>
-                <div className="book__details__publisher">Publisher: {this.state.book.publisher}</div>
-                <div className="book__details__publication_date">Publication date: {this.state.book.publication_date}</div>
-                <div className="book__details__language">Language: {this.state.book.language}</div> 
-
               </div>
               <div className="col s12 m7 l4 center-align">
                 
@@ -160,15 +166,17 @@ var BookPage = React.createClass({
                   message="The book has been borrowed."
                   ref="borrowedSnackbar"
                   action="ok"
-                  autoHideDuration="3000"
-                  onActionTouchTap={this.handleDismiss}/>
+                  onActionTouchTap={this.handleDismiss}
+                  autoHideDuration={3000}
+                  style={snackbarStyles}/>
 
                 <Snackbar 
                   message="The book has been returned."
                   ref="returnedSnackbar"
                   action="ok"
-                  autoHideDuration="3000"
-                  onActionTouchTap={this.handleDismiss}/>
+                  onActionTouchTap={this.handleDismiss}
+                  autoHideDuration={3000}
+                  style={snackbarStyles}/>
 
                 <RaisedButton 
                   className={"book__details__button_" + this.state.book.status} 
@@ -180,7 +188,17 @@ var BookPage = React.createClass({
                     margin: '25px auto'
                   }}/>
 
-                <div className="link" onClick={() => this.goBack()}>Go back</div>
+                <div className="book__details__back link" onClick={() => this.goBack()}>Go back</div>
+
+                <div className="book__details__block">
+                  <div className="book__details__hitfox_id">HitFox Internal Id: {this.state.book.hitfox_id}</div>  
+                  <div className="book__details__created_date">Added on: {this.getFormattedDate(this.state.book.created_at)}</div>  
+                  <div className="book__details__isbn">ISBN: {this.state.book.isbn}</div>
+                  <div className="book__details__publisher">Publisher: {this.state.book.publisher}</div>
+                  <div className="book__details__publication_date">Publication date: {this.state.book.publication_date}</div>
+                  <div className="book__details__language">Language: {this.state.book.language}</div> 
+                </div>
+
               </div>
             </div>
           </div>

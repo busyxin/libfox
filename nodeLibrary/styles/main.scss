@@ -154,8 +154,7 @@ nav {
   border-radius: 2px;
   width: 220px;
   height: 370px;
-  margin: auto;
-  margin-top: 50px;
+  margin: 50px 15px 0;
   text-decoration: none;
   overflow: hidden;
 
@@ -253,8 +252,11 @@ nav {
   margin: 50px auto;
 }
 
-.book__details__categories__tokens {
+.book__details__summary__text {
+  line-height: 2em;
+}
 
+.book__details__categories__tokens {
   display: flex;
   flex-wrap: wrap;
 
@@ -279,6 +281,15 @@ nav {
 .book__details__button {
   margin: 25px auto;
   width: 100%;
+}
+
+.book__details__back {
+  margin-bottom: 20px;
+}
+
+.book__details__block {
+  text-align: left;
+  font-size: 0.8em;
 }
 
 .book__details__img img {

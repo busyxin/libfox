@@ -131,8 +131,8 @@ let LibfoxTheme = {
       },
       snackbar: {
         textColor: Colors.black,
-        backgroundColor: Colors.white,
-        actionColor: palette.primary1Color,
+        backgroundColor: Colors.greenA100,
+        actionColor: Colors.blue900,
         borderColor: palette.borderColor,
       },
       table: {
